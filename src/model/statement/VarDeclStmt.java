@@ -26,10 +26,10 @@ public class VarDeclStmt implements IStmt{
             case "int" -> value = new IntValue(0);
             default -> throw new MyException("Wrong type");
         }
-        if (!tbl.isDefined(name)){
-            tbl.add(name, value);
+        if (tbl.isDefined(name)) {
+            throw new MyException("Variable named "+ name + " already exists!");
         }
-        else throw new MyException("Variable named "+ name + " already exists!");
+        tbl.add(name, value);
         return state;
     }
 
