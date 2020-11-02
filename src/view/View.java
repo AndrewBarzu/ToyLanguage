@@ -68,7 +68,7 @@ public class View {
 
     public static void main(String[] args){
 
-        Repository repo = new Repository(View.example2());
+        Repository repo = new Repository(View.example3());
         Controller controller = new Controller(repo, true);
         try {
             controller.allStep();
