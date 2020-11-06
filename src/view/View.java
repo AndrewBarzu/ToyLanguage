@@ -8,12 +8,11 @@ import model.expression.VarExp;
 import model.statement.*;
 import model.type.BoolType;
 import model.type.IntType;
+import model.type.StringType;
 import model.value.BoolValue;
 import model.value.IntValue;
-import model.value.Value;
+import model.value.StringValue;
 import repository.Repository;
-
-import java.util.ArrayList;
 
 public class View {
 
@@ -66,9 +65,38 @@ public class View {
         );
     }
 
+    static IStmt example4(){
+        return new CompStmt(
+                new VarDeclStmt("varf", new StringType()),
+                new CompStmt(
+                        new AssignStmt("varf", new ValueExp(new StringValue("test.in"))),
+                        new CompStmt(
+                                new openRFile(new VarExp("varf")),
+                                new CompStmt(
+                                        new VarDeclStmt("varc", new IntType()),
+                                        new CompStmt(
+                                                new readFile(new VarExp("varf"), "varc"),
+                                                new CompStmt(
+                                                        new PrintStmt(new VarExp("varc")),
+                                                        new CompStmt(
+                                                                new readFile(new VarExp("varf"), "varc"),
+                                                                new CompStmt(
+                                                                        new PrintStmt(new VarExp("varc")),
+                                                                        new closeRFile(new VarExp("varf"))
+                                                                )
+                                                        )
+                                                )
+
+                                        )
+                                )
+                        )
+                )
+        );
+    }
+
     public static void main(String[] args){
 
-        Repository repo = new Repository(View.example3());
+        Repository repo = new Repository(View.example4(), "log_ex4");
         Controller controller = new Controller(repo, true);
         try {
             controller.allStep();
