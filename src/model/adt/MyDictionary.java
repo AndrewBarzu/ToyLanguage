@@ -1,9 +1,10 @@
 package model.adt;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MyDictionary<K, T> implements MyIDictionary<K, T> {
-    HashMap<K, T> dict;
+    Map<K, T> dict;
 
     public MyDictionary(){
         this.dict = new HashMap<>();
@@ -25,8 +26,8 @@ public class MyDictionary<K, T> implements MyIDictionary<K, T> {
     }
 
     @Override
-    public void update(K key, T newelem) {
-        dict.replace(key, newelem);
+    public void update(K key, T newElem) {
+        dict.replace(key, newElem);
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface MyIDictionary<K, T> {
     void add(K key, T elem);
     T get(K key);
     boolean isDefined(K key);
-    void update(K key, T newelem);
+    void update(K key, T newElem);
     void remove(K key);
     void clear();
 }

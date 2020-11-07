@@ -14,4 +14,5 @@ public interface MyIStack<T> {
     void push(T el);
 
     boolean empty();
+    void clear();
 }

@@ -1,12 +1,14 @@
 package model.adt;
 
+import java.util.Deque;
 import java.util.LinkedList;
+
 /**
  * This class represents a generic stack
  * @param <T> The type of the elements stored
  */
 public class MyStack<T> implements MyIStack<T> {
-    LinkedList<T> stack;
+    Deque<T> stack;
 
     public MyStack(){
         this.stack = new LinkedList<>();
@@ -25,6 +27,11 @@ public class MyStack<T> implements MyIStack<T> {
     @Override
     public boolean empty() {
         return stack.isEmpty();
+    }
+
+    @Override
+    public void clear() {
+        stack.clear();
     }
 
     @Override

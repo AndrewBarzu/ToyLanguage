@@ -5,25 +5,45 @@ import model.adt.*;
 import model.statement.IStmt;
 import model.value.StringValue;
 import model.value.Value;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+interface Consumer{
+    static void print(@NotNull PrintWriter logFile, @NotNull String title, String structure, String regex){
+        logFile.println(title);
+        if (!title.equals("FileTable:"))
+            structure = structure.replaceAll("=", "->");
+        else {
+            structure = structure.replaceAll("=.*([,}])", "$1");
+        }
+        String[] lines = structure.split(regex);
+        ArrayList<String> linesArr = new ArrayList<>(Arrays.asList(lines));
+        linesArr.removeAll(Arrays.asList("", null, "\n"));
+        for (String line: linesArr){
+            logFile.println("   " + line);
+        }
+    }
+}
+
 public class Repository implements RepoInterface{
 
-    ArrayList<PrgState> programs;
-    int crtPrg;
-    String logFilePath;
+    private final ArrayList<PrgState> programs;
+    private final int crtPrg;
+    private final String logFilePath;
 
-    public Repository(IStmt prog, String logFilePath){
+    public Repository(PrgState prog, String logFilePath){
         programs = new ArrayList<>();
-        PrgState mainProgram = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), prog);
-        programs.add(mainProgram);
+        programs.add(prog);
         crtPrg = 0;
         this.logFilePath = logFilePath;
     }
 
+    public String getLogFilePath() {
+        return logFilePath;
+    }
 
     @Override
     public void logPrgStateExec() {
@@ -33,35 +53,11 @@ public class Repository implements RepoInterface{
         MyIDictionary<String, Value> symtbl = prog.getSymTable();
         MyIDictionary<StringValue, BufferedReader> fileTable = prog.getFileTable();
         try (PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.logFilePath, true)))) {
-            logFile.println("ExeStack:");
-            String[] lines = exeStack.toString().split(", |[\\[\\]]");
-            ArrayList<String> linesArr = new ArrayList<>(Arrays.asList(lines));
-            linesArr.removeAll(Arrays.asList("", null, "\n"));
-            for (String line: linesArr){
-                logFile.println(line);
-            }
-            logFile.println("SymTable:");
-            lines = symtbl.toString().split(", |[{}\n]");
-            linesArr = new ArrayList<>(Arrays.asList(lines));
-            linesArr.removeAll(Arrays.asList("", null, "\n"));
-            for (String line: linesArr){
-                logFile.println(line);
-            }
-            logFile.println("Out:");
-            lines = out.toString().split(", |[\\[\\]]");
-            linesArr = new ArrayList<>(Arrays.asList(lines));
-            linesArr.removeAll(Arrays.asList("", null, "\n"));
-            for (String line: linesArr){
-                logFile.println(line);
-            }
-            logFile.println("FileTable:");
-            lines = fileTable.toString().split(", |[{}]");
-            linesArr = new ArrayList<>(Arrays.asList(lines));
-            linesArr.removeAll(Arrays.asList("", null, "\n"));
-            for (String line: linesArr){
-                logFile.println(line);
-            }
-            logFile.println("");
+            Consumer.print(logFile, "ExeStack:", exeStack.toString(), ", |[\\[\\]]");
+            Consumer.print(logFile, "SymTable:", symtbl.toString(), ", |[{}\n]");
+            Consumer.print(logFile, "Out:", out.toString(), ", |[\\[\\]]");
+            Consumer.print(logFile, "FileTable:", fileTable.toString(), ", |[{}]");
+            logFile.println("------------");
         } catch (IOException e) {
             System.out.println("Error opening or writing to file: " + e);
         }

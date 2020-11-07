@@ -6,7 +6,6 @@ import model.adt.MyIDictionary;
 import model.adt.MyIStack;
 import model.expression.Exp;
 import model.type.BoolType;
-import model.type.Type;
 import model.value.BoolValue;
 import model.value.Value;
 

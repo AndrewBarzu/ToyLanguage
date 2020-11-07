@@ -3,7 +3,6 @@ package model.statement;
 import model.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
-import model.adt.MyIStack;
 import model.expression.Exp;
 import model.type.IntType;
 import model.type.StringType;

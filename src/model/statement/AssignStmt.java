@@ -3,7 +3,6 @@ package model.statement;
 import model.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
-import model.adt.MyIStack;
 import model.expression.Exp;
 import model.type.Type;
 import model.value.Value;
@@ -19,7 +18,6 @@ public class AssignStmt implements IStmt {
 
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        MyIStack<IStmt> stk = state.getExeStack();
         MyIDictionary<String, Value> tbl = state.getSymTable();
 
         if (tbl.isDefined(id)){

@@ -1,6 +1,5 @@
 package model.value;
 
-import model.type.IntType;
 import model.type.StringType;
 import model.type.Type;
 

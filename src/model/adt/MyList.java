@@ -1,13 +1,14 @@
 package model.adt;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class represents a generic list
  * @param <T> The type of the elements stored
  */
 public class MyList<T> implements MyIList<T> {
-    ArrayList<T> list;
+    List<T> list;
 
     public MyList(){
         this.list = new ArrayList<>();
@@ -19,7 +20,7 @@ public class MyList<T> implements MyIList<T> {
     }
 
     @Override
-    public void empty() {
+    public void clear() {
         list.clear();
     }
 

@@ -1,6 +1,5 @@
 package model;
 
-import model.adt.MyDictionary;
 import model.adt.MyIDictionary;
 import model.adt.MyIList;
 import model.adt.MyIStack;
@@ -18,12 +17,12 @@ public class PrgState {
     public IStmt originalProgram;
 
     public PrgState(MyIStack<IStmt> stk,
-                    MyIDictionary<String, Value> symtbl,
+                    MyIDictionary<String, Value> symTbl,
                     MyIList<Value> ot,
                     MyIDictionary<StringValue, BufferedReader> fileTable,
                     IStmt prg){
         this.exeStack = stk;
-        this.symTable = symtbl;
+        this.symTable = symTbl;
         this.fileTable = fileTable;
         this.out = ot;
         originalProgram = prg;
@@ -53,5 +52,12 @@ public class PrgState {
                 "out=" + out;
     }
 
+    public void reset(){
+        this.exeStack.clear();
+        this.exeStack.push(this.originalProgram);
+        this.symTable.clear();
+        this.fileTable.clear();
+        this.out.clear();
+    }
 
 }

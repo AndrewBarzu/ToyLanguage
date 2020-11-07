@@ -4,8 +4,6 @@ import model.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
 import model.type.Type;
-import model.value.BoolValue;
-import model.value.IntValue;
 import model.value.Value;
 
 public class VarDeclStmt implements IStmt{

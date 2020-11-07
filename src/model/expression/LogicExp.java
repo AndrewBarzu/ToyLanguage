@@ -3,17 +3,15 @@ package model.expression;
 import model.MyException;
 import model.adt.MyIDictionary;
 import model.type.BoolType;
-import model.type.IntType;
 import model.value.BoolValue;
-import model.value.IntValue;
 import model.value.Value;
 
 public class LogicExp implements Exp {
     Exp e1;
     Exp e2;
-    int op;
+    String op;
 
-    public LogicExp(Exp e1, Exp e2, int op) {
+    public LogicExp(Exp e1, Exp e2, String op) {
         this.e1 = e1;
         this.e2 = e2;
         this.op = op;
@@ -23,7 +21,7 @@ public class LogicExp implements Exp {
     public Value eval(MyIDictionary<String, Value> tbl) throws MyException {
         Value v1,v2;
         v1= e1.eval(tbl);
-        if (op != 2 && op != 1){
+        if (!op.equals("and") && !op.equals("or")){
             throw new MyException("Invalid operator");
         }
         if (!v1.getType().equals(new BoolType())) {
@@ -39,8 +37,8 @@ public class LogicExp implements Exp {
         n1 = i1.getVal();
         n2 = i2.getVal();
         return switch (op) {
-            case 1 -> new BoolValue(n1 && n2);
-            case 2 -> new BoolValue(n1 || n2);
+            case "and" -> new BoolValue(n1 && n2);
+            case "or" -> new BoolValue(n1 || n2);
             default -> throw new MyException("bad operator");
         };
     }
