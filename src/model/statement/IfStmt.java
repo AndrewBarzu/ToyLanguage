@@ -27,13 +27,13 @@ public class IfStmt implements IStmt {
 
         Value val = exp.eval(tbl);
         BoolValue bool = new BoolValue(true);
-        if (val.getType().equals(new BoolType())) {
-            if(val.equals(bool)){
-                stk.push(thenS);
-            }
-            else stk.push(elseS);
+        if (!val.getType().equals(new BoolType())) {
+            throw new MyException("Expression type is not a boolean");
         }
-        else throw new MyException("Expression type is not a boolean");
+        if(val.equals(bool)){
+            stk.push(thenS);
+        }
+        else stk.push(elseS);
         return state;
     }
 

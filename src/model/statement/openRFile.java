@@ -20,13 +20,8 @@ public class openRFile implements IStmt {
     }
     @Override
     public PrgState execute(PrgState state) throws MyException {
-        MyIDictionary<String, Value> tbl = state.getSymTable();
+        StringValue value = StringValueGetter.run(state, this.exp);
         MyIDictionary<StringValue, BufferedReader> fileTbl = state.getFileTable();
-        Value expValue = this.exp.eval(tbl);
-        if (!expValue.getType().equals(new StringType())){
-            throw new MyException("Expression should be of type string!");
-        }
-        StringValue value = (StringValue)expValue;
         if (fileTbl.isDefined(value)){
             throw new MyException("Value is already defined!");
         }

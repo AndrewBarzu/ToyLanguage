@@ -20,17 +20,15 @@ public class AssignStmt implements IStmt {
     public PrgState execute(PrgState state) throws MyException {
         MyIDictionary<String, Value> tbl = state.getSymTable();
 
-        if (tbl.isDefined(id)){
-            Value val = exp.eval(tbl);
-            Type type = (tbl.get(id)).getType();
-            if (val.getType().equals(type)){
-                tbl.update(id, val);
-            }
-            else {
-                throw new MyException("declared type of variable" + id + " and type of  the assigned expression do not match");
-            }
+        if (!tbl.isDefined(id)) {
+            throw new MyException("the used variable" + id + " was not declared before");
         }
-        else throw new MyException("the used variable" +id + " was not declared before");
+        Value val = exp.eval(tbl);
+        Type type = (tbl.get(id)).getType();
+        if (!val.getType().equals(type)) {
+            throw new MyException("declared type of variable" + id + " and type of  the assigned expression do not match");
+        }
+        tbl.update(id, val);
         return state;
     }
 

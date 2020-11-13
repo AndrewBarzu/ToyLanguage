@@ -11,6 +11,7 @@ import model.value.StringValue;
 import model.value.Value;
 
 import java.io.BufferedReader;
+import java.io.EOFException;
 import java.io.IOException;
 
 public class readFile implements IStmt {
@@ -39,11 +40,14 @@ public class readFile implements IStmt {
         }
         StringValue stringValue = (StringValue)expValue;
         if (!fileTbl.isDefined(stringValue)){
-            throw new MyException("File is not opened!");
+            throw new MyException("File <" + stringValue.getVal() + "> is not open!");
         }
         BufferedReader reader = fileTbl.get(stringValue);
         try {
             String line = reader.readLine();
+            if (line == null){
+                throw new MyException("Not enough data in file <" + stringValue.getVal() + ">!");
+            }
             if (line.equals("")){
                 tbl.update(this.var_name, new IntValue(0));
             }
@@ -52,9 +56,13 @@ public class readFile implements IStmt {
                 tbl.update(this.var_name, new IntValue(newVal));
             }
         }
+        catch (EOFException e){
+            throw new MyException("Not enough data in file " + stringValue.getVal() + "!");
+        }
         catch (IOException e){
             throw new MyException("IO Exception: " + e);
         }
+
         return state;
     }
 

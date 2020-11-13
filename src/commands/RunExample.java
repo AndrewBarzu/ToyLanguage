@@ -15,7 +15,7 @@ public class RunExample extends Command {
             ctr.allStep();
         }
         catch (MyException e) {
-            System.out.println("Example " + this.getKey() + "\n    Threw an exception: " + e);
+            System.out.println("Example " + this.getKey() + "\n    Threw an exception: " + e.toString());
         }
     }
 }

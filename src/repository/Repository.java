@@ -21,10 +21,9 @@ interface Consumer{
         }
         String[] lines = structure.split(regex);
         ArrayList<String> linesArr = new ArrayList<>(Arrays.asList(lines));
-        linesArr.removeAll(Arrays.asList("", null, "\n"));
-        for (String line: linesArr){
-            logFile.println("   " + line);
-        }
+        linesArr.stream()
+                .filter((line) -> !line.equals("") && !line.equals("\n"))
+                .forEach((line) -> logFile.println("   " + line));
     }
 }
 
