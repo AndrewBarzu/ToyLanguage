@@ -6,7 +6,7 @@ import model.type.Type;
 public class StringValue implements Value {
     String value;
 
-    public StringValue(String value){
+    public StringValue(String value) {
         this.value = value;
     }
 
@@ -15,11 +15,13 @@ public class StringValue implements Value {
         return new StringType();
     }
 
-    public String getVal() {return value;}
+    public String getVal() {
+        return value;
+    }
 
     @Override
     public boolean equals(Value other) {
-        StringValue oth = (StringValue)other;
+        StringValue oth = (StringValue) other;
         return this.value.equals(oth.value);
     }
 

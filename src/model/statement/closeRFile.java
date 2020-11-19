@@ -4,17 +4,15 @@ import model.MyException;
 import model.PrgState;
 import model.adt.MyIDictionary;
 import model.expression.Exp;
-import model.type.StringType;
 import model.value.StringValue;
-import model.value.Value;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class closeRFile implements IStmt{
+public class closeRFile implements IStmt {
     Exp exp;
 
-    public closeRFile(Exp exp){
+    public closeRFile(Exp exp) {
         this.exp = exp;
     }
 
@@ -22,17 +20,15 @@ public class closeRFile implements IStmt{
     public PrgState execute(PrgState state) throws MyException {
         StringValue value = StringValueGetter.run(state, this.exp);
         MyIDictionary<StringValue, BufferedReader> fileTbl = state.getFileTable();
-        if (!fileTbl.isDefined(value)){
+        if (!fileTbl.isDefined(value)) {
             throw new MyException("File is not opened!");
         }
         BufferedReader reader = fileTbl.get(value);
         try {
             reader.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new MyException("IO Exception: " + e);
-        }
-        finally {
+        } finally {
             fileTbl.remove(value);
         }
 

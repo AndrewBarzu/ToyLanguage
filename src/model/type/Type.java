@@ -3,6 +3,7 @@ package model.type;
 import model.value.Value;
 
 public interface Type {
-    boolean equals(Type other);
+    boolean equals(Object another);
+
     Value defaultValue();
 }

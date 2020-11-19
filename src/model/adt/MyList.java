@@ -5,12 +5,13 @@ import java.util.List;
 
 /**
  * This class represents a generic list
+ *
  * @param <T> The type of the elements stored
  */
 public class MyList<T> implements MyIList<T> {
     List<T> list;
 
-    public MyList(){
+    public MyList() {
         this.list = new ArrayList<>();
     }
 

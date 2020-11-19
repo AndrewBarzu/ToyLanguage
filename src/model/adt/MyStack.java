@@ -5,12 +5,13 @@ import java.util.LinkedList;
 
 /**
  * This class represents a generic stack
+ *
  * @param <T> The type of the elements stored
  */
 public class MyStack<T> implements MyIStack<T> {
     Deque<T> stack;
 
-    public MyStack(){
+    public MyStack() {
         this.stack = new LinkedList<>();
     }
 

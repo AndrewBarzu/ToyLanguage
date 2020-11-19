@@ -1,12 +1,15 @@
 package model.value;
+
 import model.type.BoolType;
 import model.type.Type;
 
 public class BoolValue implements Value {
     boolean val;
-    public BoolValue(boolean val){
+
+    public BoolValue(boolean val) {
         this.val = val;
     }
+
     @Override
     public Type getType() {
         return new BoolType();
@@ -18,7 +21,7 @@ public class BoolValue implements Value {
 
     @Override
     public boolean equals(Value other) {
-        BoolValue oth = (BoolValue)other;
+        BoolValue oth = (BoolValue) other;
         return this.val == oth.val;
     }
 

@@ -6,7 +6,7 @@ import java.util.Map;
 public class MyDictionary<K, T> implements MyIDictionary<K, T> {
     Map<K, T> dict;
 
-    public MyDictionary(){
+    public MyDictionary() {
         this.dict = new HashMap<>();
     }
 
@@ -43,5 +43,10 @@ public class MyDictionary<K, T> implements MyIDictionary<K, T> {
     @Override
     public String toString() {
         return dict.toString();
+    }
+
+    @Override
+    public Map<K, T> getContent() {
+        return this.dict;
     }
 }

@@ -3,9 +3,9 @@ package model.type;
 import model.value.BoolValue;
 import model.value.Value;
 
-public class BoolType implements Type{
+public class BoolType implements Type {
     @Override
-    public boolean equals(Type other) {
+    public boolean equals(Object other) {
         return other instanceof BoolType;
     }
 

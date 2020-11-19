@@ -1,6 +1,7 @@
 package model;
 
 import model.adt.MyIDictionary;
+import model.adt.MyIHeap;
 import model.adt.MyIList;
 import model.adt.MyIStack;
 import model.statement.IStmt;
@@ -14,17 +15,20 @@ public class PrgState {
     MyIDictionary<String, Value> symTable;
     MyIList<Value> out;
     MyIDictionary<StringValue, BufferedReader> fileTable;
+    MyIHeap<Integer, Value> heap;
     public IStmt originalProgram;
 
     public PrgState(MyIStack<IStmt> stk,
                     MyIDictionary<String, Value> symTbl,
                     MyIList<Value> ot,
                     MyIDictionary<StringValue, BufferedReader> fileTable,
-                    IStmt prg){
+                    MyIHeap<Integer, Value> heap,
+                    IStmt prg) {
         this.exeStack = stk;
         this.symTable = symTbl;
         this.fileTable = fileTable;
         this.out = ot;
+        this.heap = heap;
         originalProgram = prg;
         if (originalProgram != null)
             stk.push(prg);
@@ -42,9 +46,14 @@ public class PrgState {
         return symTable;
     }
 
+    public MyIHeap<Integer, Value> getHeap() {
+        return heap;
+    }
+
     public MyIDictionary<StringValue, BufferedReader> getFileTable() {
         return fileTable;
     }
+
     @Override
     public String toString() {
         return "exeStack=" + exeStack + "\n" +
@@ -52,7 +61,7 @@ public class PrgState {
                 "out=" + out;
     }
 
-    public void reset(){
+    public void reset() {
         this.exeStack.clear();
         this.exeStack.push(this.originalProgram);
         this.symTable.clear();

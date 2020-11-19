@@ -3,10 +3,10 @@ package model.value;
 import model.type.IntType;
 import model.type.Type;
 
-public class IntValue implements Value{
+public class IntValue implements Value {
     int value;
 
-    public IntValue(int value){
+    public IntValue(int value) {
         this.value = value;
     }
 
@@ -15,11 +15,15 @@ public class IntValue implements Value{
         return new IntType();
     }
 
-    public int getVal() {return value;}
+    public int getVal() {
+        return value;
+    }
 
     @Override
     public boolean equals(Value other) {
-        IntValue oth = (IntValue)other;
+        if (!(other instanceof IntValue))
+            return false;
+        IntValue oth = (IntValue) other;
         return this.value == oth.value;
     }
 

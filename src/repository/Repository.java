@@ -1,18 +1,17 @@
 package repository;
 
 import model.PrgState;
-import model.adt.*;
-import model.statement.IStmt;
-import model.value.StringValue;
-import model.value.Value;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-interface Consumer{
-    static void print(@NotNull PrintWriter logFile, @NotNull String title, String structure, String regex){
+interface Consumer {
+    static void print(@NotNull PrintWriter logFile, @NotNull String title, String structure, String regex) {
         logFile.println(title);
         if (!title.equals("FileTable:"))
             structure = structure.replaceAll("=", "->");
@@ -27,13 +26,13 @@ interface Consumer{
     }
 }
 
-public class Repository implements RepoInterface{
+public class Repository implements RepoInterface {
 
     private final ArrayList<PrgState> programs;
     private final int crtPrg;
     private final String logFilePath;
 
-    public Repository(PrgState prog, String logFilePath){
+    public Repository(PrgState prog, String logFilePath) {
         programs = new ArrayList<>();
         programs.add(prog);
         crtPrg = 0;
@@ -47,13 +46,15 @@ public class Repository implements RepoInterface{
     @Override
     public void logPrgStateExec() {
         PrgState prog = programs.get(crtPrg);
-        MyIStack<IStmt> exeStack = prog.getExeStack();
-        MyIList<Value> out = prog.getOut();
-        MyIDictionary<String, Value> symtbl = prog.getSymTable();
-        MyIDictionary<StringValue, BufferedReader> fileTable = prog.getFileTable();
+        var exeStack = prog.getExeStack();
+        var out = prog.getOut();
+        var symtbl = prog.getSymTable();
+        var heap = prog.getHeap();
+        var fileTable = prog.getFileTable();
         try (PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.logFilePath, true)))) {
             Consumer.print(logFile, "ExeStack:", exeStack.toString(), ", |[\\[\\]]");
             Consumer.print(logFile, "SymTable:", symtbl.toString(), ", |[{}\n]");
+            Consumer.print(logFile, "Heap", heap.toString(), ", |[{}\n]");
             Consumer.print(logFile, "Out:", out.toString(), ", |[\\[\\]]");
             Consumer.print(logFile, "FileTable:", fileTable.toString(), ", |[{}]");
             logFile.println("------------");

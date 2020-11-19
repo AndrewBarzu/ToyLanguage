@@ -5,16 +5,17 @@ import model.MyException;
 
 public class RunExample extends Command {
     private final Controller ctr;
-    public RunExample(String key, String desc, Controller ctr){
+
+    public RunExample(String key, String desc, Controller ctr) {
         super(key, desc);
-        this.ctr=ctr;
+        this.ctr = ctr;
     }
+
     @Override
     public void execute() {
-        try{
+        try {
             ctr.allStep();
-        }
-        catch (MyException e) {
+        } catch (MyException e) {
             System.out.println("Example " + this.getKey() + "\n    Threw an exception: " + e.toString());
         }
     }

@@ -4,5 +4,6 @@ import model.type.Type;
 
 public interface Value {
     Type getType();
+
     boolean equals(Value other);
 }
