@@ -22,7 +22,7 @@ public class VarDeclStmt implements IStmt {
             throw new MyException("Variable named " + name + " already exists!");
         }
         tbl.add(name, value);
-        return state;
+        return null;
     }
 
     @Override

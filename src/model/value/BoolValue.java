@@ -26,6 +26,11 @@ public class BoolValue implements Value {
     }
 
     @Override
+    public Value copy() {
+        return new BoolValue(val);
+    }
+
+    @Override
     public String toString() {
         return val + "";
     }

@@ -11,7 +11,7 @@ public class MyDictionary<K, T> implements MyIDictionary<K, T> {
     }
 
     @Override
-    public void add(K key, T elem) {
+    public synchronized void add(K key, T elem) {
         dict.put(key, elem);
     }
 
@@ -26,17 +26,17 @@ public class MyDictionary<K, T> implements MyIDictionary<K, T> {
     }
 
     @Override
-    public void update(K key, T newElem) {
+    public synchronized void update(K key, T newElem) {
         dict.replace(key, newElem);
     }
 
     @Override
-    public void remove(K key) {
+    public synchronized void remove(K key) {
         dict.remove(key);
     }
 
     @Override
-    public void clear() {
+    public synchronized void clear() {
         dict.clear();
     }
 
@@ -48,5 +48,10 @@ public class MyDictionary<K, T> implements MyIDictionary<K, T> {
     @Override
     public Map<K, T> getContent() {
         return this.dict;
+    }
+
+    @Override
+    public synchronized void setContent(Map<K, T> newContent) {
+        this.dict = newContent;
     }
 }

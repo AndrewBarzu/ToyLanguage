@@ -29,7 +29,7 @@ public class AssignStmt implements IStmt {
             throw new MyException("declared type of variable" + id + " and type of  the assigned expression do not match");
         }
         tbl.update(id, val);
-        return state;
+        return null;
     }
 
     @Override

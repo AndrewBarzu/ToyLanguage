@@ -36,6 +36,11 @@ public class MyStack<T> implements MyIStack<T> {
     }
 
     @Override
+    public Deque<T> getContent() {
+        return this.stack;
+    }
+
+    @Override
     public String toString() {
         return stack.toString();
     }

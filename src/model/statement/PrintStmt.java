@@ -17,7 +17,7 @@ public class PrintStmt implements IStmt {
         var tbl = state.getSymTable();
         var heap = state.getHeap();
         out.add(exp.eval(tbl, heap));
-        return state;
+        return null;
     }
 
     @Override

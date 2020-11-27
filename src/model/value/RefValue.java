@@ -34,6 +34,11 @@ public class RefValue implements Value {
     }
 
     @Override
+    public Value copy() {
+        return new RefValue(address, locationType);
+    }
+
+    @Override
     public String toString() {
         return "(" + address + "," + locationType.toString() + ")";
     }

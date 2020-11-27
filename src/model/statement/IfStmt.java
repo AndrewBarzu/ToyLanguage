@@ -32,7 +32,7 @@ public class IfStmt implements IStmt {
         if (val.equals(bool)) {
             stk.push(thenS);
         } else stk.push(elseS);
-        return state;
+        return null;
     }
 
     @Override

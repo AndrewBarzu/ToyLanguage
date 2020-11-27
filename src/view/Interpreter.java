@@ -23,8 +23,6 @@ import repository.Repository;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
 
 
 interface ProgramFromList {
@@ -141,7 +139,7 @@ public class Interpreter {
     static IStmt example8() {
         return ProgramFromList.create(Arrays.asList(
                 new VarDeclStmt("a", new IntType()),
-                new AssignStmt("a", new ValueExp(new IntValue(5))),
+                new AssignStmt("a", new ValueExp(new IntValue(2))),
                 new WhileStmt(new RelExp(new VarExp("a"), new ValueExp(new IntValue(0)), ">"),
                         new CompStmt(
                                 new PrintStmt(new VarExp("a")),
@@ -149,6 +147,32 @@ public class Interpreter {
                         )),
                 new PrintStmt(new VarExp("a"))
         ));
+    }
+
+    static IStmt example9() {
+        return ProgramFromList.create(Arrays.asList(
+                new VarDeclStmt("v", new IntType()),
+                new VarDeclStmt("a", new RefType(new IntType())),
+                new AssignStmt("v", new ValueExp(new IntValue(10))),
+                new New("a", new ValueExp(new IntValue(22))),
+                new Fork(ProgramFromList.create(Arrays.asList(
+                        new WriteHeap("a", new ValueExp(new IntValue(30))),
+                        new AssignStmt("v", new ValueExp(new IntValue(32))),
+                        new PrintStmt(new VarExp("v")),
+                        new PrintStmt(new ReadHeap(new VarExp("a")))
+                ))),
+                new NopStmt(),
+                new NopStmt(),
+                new NopStmt(),
+                new NopStmt(),
+                new NopStmt(),
+                new NopStmt(),
+                new NopStmt(),
+                new NopStmt(),
+                new PrintStmt(new VarExp("v")),
+                new PrintStmt(new ReadHeap(new VarExp("a")))
+                )
+        );
     }
 
     public static void main(String[] args) {
@@ -184,6 +208,10 @@ public class Interpreter {
         PrgState prg8 = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), new MyHeap(), ex8);
         RepoInterface repo8 = new Repository(prg8, "log8.txt");
         Controller ctr8 = new Controller(repo8, true);
+        IStmt ex9 = example9();
+        PrgState prg9 = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), new MyDictionary<>(), new MyHeap(), ex9);
+        RepoInterface repo9 = new Repository(prg9, "log9.txt");
+        Controller ctr9 = new Controller(repo9, true);
 
 
         TextMenu menu = new TextMenu();
@@ -196,6 +224,7 @@ public class Interpreter {
         menu.addCommand(new RunExample("6", ex6.toString(), ctr6));
         menu.addCommand(new RunExample("7", ex7.toString(), ctr7));
         menu.addCommand(new RunExample("8", ex8.toString(), ctr8));
+        menu.addCommand(new RunExample("9", ex9.toString(), ctr9));
 //        List<PrgState> list = Arrays.asList(prg1, prg2);
 //        List<PrgState> newList = list.stream()
 //                .map(p -> (Callable<PrgState>)(() -> p.oneStep()))

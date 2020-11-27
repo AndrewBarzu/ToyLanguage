@@ -22,4 +22,6 @@ public interface MyIDictionary<K, T> {
     void clear();
 
     Map<K, T> getContent();
+
+    void setContent(Map<K, T> newContent);
 }

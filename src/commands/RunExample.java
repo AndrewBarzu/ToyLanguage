@@ -1,7 +1,6 @@
 package commands;
 
 import controller.Controller;
-import model.MyException;
 
 public class RunExample extends Command {
     private final Controller ctr;
@@ -13,10 +12,6 @@ public class RunExample extends Command {
 
     @Override
     public void execute() {
-        try {
-            ctr.allStep();
-        } catch (MyException e) {
-            System.out.println("Example " + this.getKey() + "\n    Threw an exception: " + e.toString());
-        }
+        ctr.allStep();
     }
 }

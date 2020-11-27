@@ -16,13 +16,18 @@ public class MyList<T> implements MyIList<T> {
     }
 
     @Override
-    public void add(T el) {
+    public synchronized void add(T el) {
         list.add(el);
     }
 
     @Override
-    public void clear() {
+    public synchronized void clear() {
         list.clear();
+    }
+
+    @Override
+    public List<T> getContent() {
+        return this.list;
     }
 
     @Override

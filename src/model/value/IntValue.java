@@ -28,6 +28,11 @@ public class IntValue implements Value {
     }
 
     @Override
+    public Value copy() {
+        return new IntValue(value);
+    }
+
+    @Override
     public String toString() {
         return value + "";
     }

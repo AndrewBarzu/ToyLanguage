@@ -35,6 +35,11 @@ public class WriteHeap implements IStmt {
 
         heap.update(addr, evaluated);
 
-        return state;
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "wH(" + this.var_name + ", " + this.expression.toString() + ")";
     }
 }

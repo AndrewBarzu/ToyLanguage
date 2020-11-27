@@ -30,7 +30,7 @@ public class openRFile implements IStmt {
         } catch (IOException e) {
             throw new MyException("IO Exception: " + e);
         }
-        return state;
+        return null;
     }
 
     @Override

@@ -6,4 +6,6 @@ public interface Value {
     Type getType();
 
     boolean equals(Value other);
+
+    Value copy();
 }

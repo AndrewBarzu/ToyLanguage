@@ -1,5 +1,7 @@
 package model.adt;
 
+import java.util.Deque;
+
 public interface MyIStack<T> {
     /**
      * This function pops the element on the top of the stack
@@ -18,4 +20,6 @@ public interface MyIStack<T> {
     boolean empty();
 
     void clear();
+
+    Deque<T> getContent();
 }

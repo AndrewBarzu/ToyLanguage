@@ -26,12 +26,12 @@ public class WhileStmt implements IStmt {
             throw new MyException("While condition cannot be evaluated to a boolean!");
         }
         if (expVal.equals(new BoolValue(false))) {
-            return state;
+            return null;
         }
         var exeStack = state.getExeStack();
         exeStack.push(this);
         exeStack.push(this.stmt);
-        return state;
+        return null;
     }
 
     @Override

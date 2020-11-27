@@ -40,7 +40,7 @@ public class New implements IStmt {
 
         symTbl.update(var_name, newVal);
 
-        return state;
+        return null;
     }
 
     @Override

@@ -15,7 +15,7 @@ public class MyHeap implements MyIHeap<Integer, Value> {
     }
 
     @Override
-    public int add(Value elem) {
+    public synchronized int add(Value elem) {
         hashMap.put(currentAddress, elem);
         return currentAddress++;
     }
@@ -31,17 +31,17 @@ public class MyHeap implements MyIHeap<Integer, Value> {
     }
 
     @Override
-    public void update(Integer key, Value newElem) {
+    public synchronized void update(Integer key, Value newElem) {
         hashMap.replace(key, newElem);
     }
 
     @Override
-    public void remove(Integer key) {
+    public synchronized void remove(Integer key) {
         hashMap.remove(key);
     }
 
     @Override
-    public void clear() {
+    public synchronized void clear() {
         hashMap.clear();
     }
 
@@ -55,7 +55,7 @@ public class MyHeap implements MyIHeap<Integer, Value> {
         return hashMap;
     }
 
-    public void setContent(Map<Integer, Value> newContent) {
+    public synchronized void setContent(Map<Integer, Value> newContent) {
         this.hashMap = newContent;
     }
 }

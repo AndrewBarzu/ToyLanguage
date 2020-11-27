@@ -32,7 +32,7 @@ public class closeRFile implements IStmt {
             fileTbl.remove(value);
         }
 
-        return state;
+        return null;
     }
 
     @Override

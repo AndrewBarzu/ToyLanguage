@@ -17,6 +17,8 @@ public class PrgState {
     MyIDictionary<StringValue, BufferedReader> fileTable;
     MyIHeap<Integer, Value> heap;
     public IStmt originalProgram;
+    static private int nextId;
+    private final int myid;
 
     public PrgState(MyIStack<IStmt> stk,
                     MyIDictionary<String, Value> symTbl,
@@ -29,9 +31,14 @@ public class PrgState {
         this.fileTable = fileTable;
         this.out = ot;
         this.heap = heap;
+        this.myid = getId();
         originalProgram = prg;
         if (originalProgram != null)
             stk.push(prg);
+    }
+
+    private synchronized int getId() {
+        return nextId++;
     }
 
     public MyIStack<IStmt> getExeStack() {
@@ -67,6 +74,21 @@ public class PrgState {
         this.symTable.clear();
         this.fileTable.clear();
         this.out.clear();
+    }
+
+    public int getMyId() {
+        return this.myid;
+    }
+
+    public Boolean isNotCompleted() {
+        return !this.exeStack.empty();
+    }
+
+    public PrgState oneStep() throws MyException {
+        if (this.exeStack.empty())
+            throw new MyException("PrgState stack is empty");
+        IStmt crtStmt = this.exeStack.pop();
+        return crtStmt.execute(this);
     }
 
 }

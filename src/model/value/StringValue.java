@@ -26,6 +26,11 @@ public class StringValue implements Value {
     }
 
     @Override
+    public Value copy() {
+        return new StringValue(value);
+    }
+
+    @Override
     public String toString() {
         return value.equals("") ? "null" : value;
     }
