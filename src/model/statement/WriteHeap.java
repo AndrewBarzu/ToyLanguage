@@ -2,7 +2,11 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.TypecheckException;
+import model.adt.MyIDictionary;
 import model.expression.Exp;
+import model.type.RefType;
+import model.type.Type;
 import model.value.RefValue;
 import model.value.Value;
 
@@ -36,6 +40,18 @@ public class WriteHeap implements IStmt {
         heap.update(addr, evaluated);
 
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+
+        if (!typeEnv.isDefined(var_name))
+            throw new TypecheckException("Variable is not defined");
+
+        if (!typeEnv.get(var_name).equals(new RefType(expression.typecheck(typeEnv))))
+            throw new TypecheckException("not ok");
+
+        return typeEnv;
     }
 
     @Override

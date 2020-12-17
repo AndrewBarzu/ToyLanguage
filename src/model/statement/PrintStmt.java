@@ -2,7 +2,9 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.adt.MyIDictionary;
 import model.expression.Exp;
+import model.type.Type;
 
 public class PrintStmt implements IStmt {
     final private Exp exp;
@@ -23,5 +25,11 @@ public class PrintStmt implements IStmt {
     @Override
     public String toString() {
         return "print(" + exp.toString() + ")";
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        exp.typecheck(typeEnv);
+        return typeEnv;
     }
 }

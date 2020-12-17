@@ -2,8 +2,11 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.TypecheckException;
 import model.adt.MyIDictionary;
 import model.expression.Exp;
+import model.type.StringType;
+import model.type.Type;
 import model.value.StringValue;
 
 import java.io.BufferedReader;
@@ -31,6 +34,13 @@ public class openRFile implements IStmt {
             throw new MyException("IO Exception: " + e);
         }
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        if (!exp.typecheck(typeEnv).equals(new StringType()))
+            throw new TypecheckException("Expression is not a string");
+        return typeEnv;
     }
 
     @Override

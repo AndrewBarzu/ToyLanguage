@@ -2,8 +2,12 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.TypecheckException;
+import model.adt.MyDictionary;
+import model.adt.MyIDictionary;
 import model.expression.Exp;
 import model.type.BoolType;
+import model.type.Type;
 import model.value.BoolValue;
 import model.value.Value;
 
@@ -32,6 +36,20 @@ public class WhileStmt implements IStmt {
         exeStack.push(this);
         exeStack.push(this.stmt);
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        var res = expression.typecheck(typeEnv);
+
+        if (!res.equals(new BoolType()))
+            throw new TypecheckException("Type is not bool");
+
+        var clone = new MyDictionary<String, Type>();
+        clone.setContent(typeEnv.getContent());
+        stmt.typecheck(clone);
+
+        return typeEnv;
     }
 
     @Override

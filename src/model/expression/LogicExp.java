@@ -1,9 +1,12 @@
 package model.expression;
 
 import model.MyException;
+import model.TypecheckException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
 import model.type.BoolType;
+import model.type.IntType;
+import model.type.Type;
 import model.value.BoolValue;
 import model.value.Value;
 
@@ -43,5 +46,22 @@ public class LogicExp implements Exp {
             default -> throw new MyException("bad operator");
         };
     }
+
+    @Override
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typ1, typ2;
+        typ1=e1.typecheck(typeEnv);
+        typ2=e2.typecheck(typeEnv);
+
+        if (!typ1.equals(new BoolType()))
+            throw new TypecheckException("first operand is not a bool");
+
+        if (!typ2.equals(new BoolType()))
+            throw new TypecheckException("second operand is not a bool");
+
+        return new BoolType();
+    }
+
+
 }
 

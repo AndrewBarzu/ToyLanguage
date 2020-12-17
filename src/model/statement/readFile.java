@@ -2,9 +2,12 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.TypecheckException;
+import model.adt.MyIDictionary;
 import model.expression.Exp;
 import model.type.IntType;
 import model.type.StringType;
+import model.type.Type;
 import model.value.IntValue;
 import model.value.StringValue;
 import model.value.Value;
@@ -61,6 +64,20 @@ public class readFile implements IStmt {
         }
 
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        if (!typeEnv.isDefined(var_name))
+            throw new TypecheckException("Variable " + var_name + " not defined");
+
+        if (!typeEnv.get(var_name).equals(new IntType()))
+            throw new TypecheckException("Variable " + var_name + "is not of type int");
+
+        if (exp.typecheck(typeEnv).equals(new IntType()))
+            throw new TypecheckException("Expression is not int");
+
+        return typeEnv;
     }
 
     @Override

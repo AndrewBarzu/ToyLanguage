@@ -1,8 +1,11 @@
 package model.expression;
 
 import model.MyException;
+import model.TypecheckException;
 import model.adt.MyIDictionary;
 import model.adt.MyIHeap;
+import model.type.RefType;
+import model.type.Type;
 import model.value.RefValue;
 import model.value.Value;
 
@@ -23,6 +26,16 @@ public class ReadHeap implements Exp {
         if (!heap.isDefined(referencedValue.getAddr()))
             throw new MyException("Address does not exist!");
         return heap.get(referencedValue.getAddr());
+    }
+
+    @Override
+    public Type typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typ = expression.typecheck(typeEnv);
+        if (!(typ instanceof RefType))
+            throw new TypecheckException("the rH argument is not a Ref Type");
+
+        RefType reft = (RefType) typ;
+        return reft.getInner();
     }
 
     @Override

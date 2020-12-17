@@ -3,7 +3,9 @@ package model.statement;
 import model.MyException;
 import model.PrgState;
 import model.adt.MyDictionary;
+import model.adt.MyIDictionary;
 import model.adt.MyStack;
+import model.type.Type;
 import model.value.Value;
 
 import java.util.Map;
@@ -28,6 +30,14 @@ public class Fork implements IStmt {
                 .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().copy())));
 
         return new PrgState(stack, symTbl, out, fileTbl, heap, statement);
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        var clone = new MyDictionary<String, Type>();
+        clone.setContent(typeEnv.getContent());
+        statement.typecheck(clone);
+        return typeEnv;
     }
 
     @Override

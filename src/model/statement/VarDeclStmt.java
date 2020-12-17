@@ -2,6 +2,7 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.adt.MyIDictionary;
 import model.type.Type;
 import model.value.Value;
 
@@ -28,5 +29,11 @@ public class VarDeclStmt implements IStmt {
     @Override
     public String toString() {
         return type + " " + name;
+    }
+
+    @Override
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        typeEnv.add(name, type);
+        return typeEnv;
     }
 }

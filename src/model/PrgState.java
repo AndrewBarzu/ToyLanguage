@@ -9,6 +9,7 @@ import model.value.StringValue;
 import model.value.Value;
 
 import java.io.BufferedReader;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class PrgState {
     MyIStack<IStmt> exeStack;
@@ -17,7 +18,7 @@ public class PrgState {
     MyIDictionary<StringValue, BufferedReader> fileTable;
     MyIHeap<Integer, Value> heap;
     public IStmt originalProgram;
-    static private int nextId;
+    static private final AtomicInteger nextId = new AtomicInteger();
     private final int myid;
 
     public PrgState(MyIStack<IStmt> stk,
@@ -31,14 +32,10 @@ public class PrgState {
         this.fileTable = fileTable;
         this.out = ot;
         this.heap = heap;
-        this.myid = getId();
+        this.myid = nextId.getAndIncrement();
         originalProgram = prg;
         if (originalProgram != null)
             stk.push(prg);
-    }
-
-    private synchronized int getId() {
-        return nextId++;
     }
 
     public MyIStack<IStmt> getExeStack() {

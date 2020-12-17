@@ -2,6 +2,8 @@ package model.statement;
 
 import model.MyException;
 import model.PrgState;
+import model.TypecheckException;
+import model.adt.MyIDictionary;
 import model.expression.Exp;
 import model.type.Type;
 import model.value.Value;
@@ -35,5 +37,13 @@ public class AssignStmt implements IStmt {
     @Override
     public String toString() {
         return id + "=" + exp.toString();
+    }
+
+    public MyIDictionary<String, Type> typecheck(MyIDictionary<String, Type> typeEnv) throws MyException {
+        Type typevar = typeEnv.get(id);
+        Type typexp = exp.typecheck(typeEnv);
+        if (!typevar.equals(typexp))
+            throw new TypecheckException("Assignment: right hand side and left hand side have different types ");
+        return typeEnv;
     }
 }
