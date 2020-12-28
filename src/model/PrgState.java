@@ -60,9 +60,7 @@ public class PrgState {
 
     @Override
     public String toString() {
-        return "exeStack=" + exeStack + "\n" +
-                "symTable=" + symTable + "\n" +
-                "out=" + out;
+        return Integer.toString(this.myid);
     }
 
     public void reset() {
@@ -73,7 +71,7 @@ public class PrgState {
         this.out.clear();
     }
 
-    public int getMyId() {
+    public int getId() {
         return this.myid;
     }
 

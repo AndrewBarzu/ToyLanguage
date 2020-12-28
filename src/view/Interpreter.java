@@ -1,6 +1,6 @@
 package view;
 
-import controller.SelectPorgramController;
+import controller.SelectProgramController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -187,16 +187,16 @@ public class Interpreter extends Application {
     }
 
     public static void main(String[] args) {
-        IStmt ex1 = example1();
-        IStmt ex2 = example2();
-        IStmt ex3 = example3();
-        IStmt ex4 = example4();
-        IStmt ex5 = example5();
-        IStmt ex6 = example6();
-        IStmt ex7 = example7();
-        IStmt ex8 = example8();
-        IStmt ex9 = example9();
-        IStmt ex10 = crapa_la_typecheck();
+//        IStmt ex1 = example1();
+//        IStmt ex2 = example2();
+//        IStmt ex3 = example3();
+//        IStmt ex4 = example4();
+//        IStmt ex5 = example5();
+//        IStmt ex6 = example6();
+//        IStmt ex7 = example7();
+//        IStmt ex8 = example8();
+//        IStmt ex9 = example9();
+//        IStmt ex10 = crapa_la_typecheck();
         launch(args);
 
 //        TextMenu menu = new TextMenu();
@@ -220,7 +220,7 @@ public class Interpreter extends Application {
         VBox root = fxmlLoader.load();
         Scene scene = new Scene(root, 400, 400);
         scene.getStylesheets().add(getClass().getResource("css/main.css").toExternalForm());
-        SelectPorgramController controller = fxmlLoader.getController();
+        SelectProgramController controller = fxmlLoader.getController();
         controller.setListItems(List.of(
                 example1(),
                 example2(),

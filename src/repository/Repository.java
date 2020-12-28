@@ -53,13 +53,16 @@ public class Repository implements RepoInterface {
 
     @Override
     public void logPrgStateExec(PrgState prgState) throws MyException {
+        if (this.logFilePath.equals("")){
+            return;
+        }
         var exeStack = prgState.getExeStack();
         var out = prgState.getOut();
         var symtbl = prgState.getSymTable();
         var heap = prgState.getHeap();
         var fileTable = prgState.getFileTable();
         try (PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(this.logFilePath, true)))) {
-            logFile.println("ID: " + prgState.getMyId());
+            logFile.println("ID: " + prgState.getId());
             logFile.println("ExeStack:");
             exeStack.getContent().forEach(stmt -> logFile.println("   " + stmt.toString()));
             logFile.println("SymTable:");
